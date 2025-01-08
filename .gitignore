@@ -27,3 +27,4 @@ go.work.sum
 # tar/swagger.json/pb.go
 ./api/docs
 *.pb.go
+.idea
