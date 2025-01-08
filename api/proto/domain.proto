@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+// 摄像头
+message Camera {
+  // 设备名称
+  string name = 1;
+  // 摄像头ip
+  string ip = 2;
+  // 摄像头端口
+  int32 port = 3;
+  // 账号
+  string username = 4;
+  // 密码
+  string passwd = 5;
+  // 路径
+  string path = 6;
+}

@@ -1,0 +1,240 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "service.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "StreamServiceService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/camera/preview": {
+      "post": {
+        "summary": "预览摄像头",
+        "operationId": "StreamServiceService_PreviewCamera",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoPreviewCameraResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoPreviewCameraRequest"
+            }
+          }
+        ],
+        "tags": [
+          "StreamServiceService"
+        ]
+      }
+    },
+    "/v1/camera/upsert": {
+      "post": {
+        "summary": "创建摄像头",
+        "operationId": "StreamServiceService_UpsertCamera",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUpsertCameraRequest"
+            }
+          }
+        ],
+        "tags": [
+          "StreamServiceService"
+        ]
+      }
+    },
+    "/v1/camera/{name}": {
+      "delete": {
+        "summary": "删除摄像头",
+        "operationId": "StreamServiceService_DeleteCamera",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "description": "摄像头名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "StreamServiceService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protoCamera": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "设备名称"
+        },
+        "ip": {
+          "type": "string",
+          "title": "摄像头ip"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "title": "摄像头端口"
+        },
+        "username": {
+          "type": "string",
+          "title": "账号"
+        },
+        "passwd": {
+          "type": "string",
+          "title": "密码"
+        },
+        "path": {
+          "type": "string",
+          "title": "路径"
+        }
+      },
+      "title": "摄像头"
+    },
+    "protoPreviewCameraRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "摄像头名称"
+        }
+      },
+      "title": "预览摄像头请求"
+    },
+    "protoPreviewCameraResponse": {
+      "type": "object",
+      "properties": {
+        "resp": {
+          "$ref": "#/definitions/protoResponse",
+          "title": "基础返回值"
+        },
+        "liveUrl": {
+          "type": "string",
+          "title": "返回结果"
+        }
+      },
+      "title": "------ Response ------\n返回预览接口"
+    },
+    "protoRespCode": {
+      "type": "string",
+      "enum": [
+        "RESP_CODE_DEFAULT",
+        "RESP_CODE_OK",
+        "RESP_CODE_PARAM_ERROR",
+        "RESP_CODE_HANDLER_ERROR",
+        "RESP_CODE_DB_ERROR"
+      ],
+      "default": "RESP_CODE_DEFAULT",
+      "description": "- RESP_CODE_DEFAULT: 默认值\n - RESP_CODE_OK: 成功\n - RESP_CODE_PARAM_ERROR: 请求参数错误\n - RESP_CODE_HANDLER_ERROR: 接口服务报错\n - RESP_CODE_DB_ERROR: 数据库报错",
+      "title": "返回值状态码"
+    },
+    "protoResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/protoRespCode",
+          "title": "状态码"
+        },
+        "message": {
+          "type": "string",
+          "title": "返回消息"
+        }
+      },
+      "title": "基础返回值"
+    },
+    "protoUpsertCameraRequest": {
+      "type": "object",
+      "properties": {
+        "camera": {
+          "$ref": "#/definitions/protoCamera",
+          "title": "摄像头信息"
+        }
+      },
+      "title": "------ Request ------\n创建/更新摄像头"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

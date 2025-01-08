@@ -1,0 +1,13 @@
+log:
+  level: -4
+  kinds: "text"
+  project: "basic"
+port:
+  grpc: 9090
+  http: 8080
+db:
+  user: "root"
+  passwd: "Ab123456"
+  ip: "10.10.101.77"
+  port: "32667"
+  dbName: "test"

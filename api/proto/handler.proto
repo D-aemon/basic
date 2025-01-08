@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+import "utils.proto";
+import "domain.proto";
+
+
+// ------ Request ------
+// 创建/更新摄像头
+message UpsertCameraRequest {
+  // 摄像头信息
+  Camera camera = 1;
+}
+
+// 删除摄像头请求
+message DeleteCameraRequest {
+  // 摄像头名称
+  string name = 1;
+}
+
+// 预览摄像头请求
+message PreviewCameraRequest {
+  // 摄像头名称
+  string name = 1;
+}
+
+// ------ Response ------
+// 返回预览接口
+message PreviewCameraResponse {
+  // 基础返回值
+  Response resp = 1;
+  // 返回结果
+  string live_url = 2;
+}

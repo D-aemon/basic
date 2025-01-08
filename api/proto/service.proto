@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+import "google/api/annotations.proto";
+import "utils.proto";
+import "handler.proto";
+
+
+// basic service
+service StreamServiceService {
+  // 创建摄像头
+  rpc UpsertCamera(UpsertCameraRequest) returns (Response) {
+    option (google.api.http) = {
+      post: "/v1/camera/upsert"
+      body: "*"
+    };
+  }
+  // 删除摄像头
+  rpc DeleteCamera(DeleteCameraRequest) returns (Response) {
+    option (google.api.http) = {
+      delete: "/v1/camera/{name}"
+    };
+  }
+  // 预览摄像头
+  rpc PreviewCamera(PreviewCameraRequest) returns (PreviewCameraResponse) {
+    option (google.api.http) = {
+      post: "/v1/camera/preview"
+      body: "*"
+    };
+  }
+}

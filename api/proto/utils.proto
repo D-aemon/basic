@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+// 空值
+message Empty {}
+
+// 返回值状态码
+enum RespCode {
+  // 默认值
+  RESP_CODE_DEFAULT = 0;
+  // 成功
+  RESP_CODE_OK = 1;
+  // 请求参数错误
+  RESP_CODE_PARAM_ERROR = 2;
+  // 接口服务报错
+  RESP_CODE_HANDLER_ERROR = 3;
+  // 数据库报错
+  RESP_CODE_DB_ERROR = 4;
+}
+
+// 基础返回值
+message Response {
+  // 状态码
+  RespCode status = 1;
+  // 返回消息
+  string message = 2;
+}
+
+// 基础查询体
+message Query {
+  // 根据所选列排序
+  // 字符串值应该遵循 SQL 语法：逗号分隔的字段列表。例如："foo,bar"。默认排序顺序为升序。要将字段指定为降序，应该将后缀 " desc" 附加到字段名称中。例如："foo desc,bar"
+  // 语法中的冗余空格字符是无关紧要的。 "foo,bar desc" 和 "  foo ,  bar  desc  " 是等效的。
+  string order_by = 1;
+  // 每页返回的数据量
+  string page_size = 2;
+  // 偏移量
+  string offset = 3;
+  // 总量
+  int32 total_size = 4;
+  // 起始时间戳
+  int32 start_time = 5;
+  // 结束时间戳
+  int32 end_time = 6;
+}
