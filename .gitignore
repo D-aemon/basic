@@ -28,3 +28,4 @@ go.work.sum
 ./api/docs
 *.pb.go
 .idea
+.DS_Store
